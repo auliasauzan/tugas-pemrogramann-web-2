@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\SkincareController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
@@ -7,10 +8,7 @@ Route::get('/', function () {
 });
 
 
-Route::get('/Skincare', function () {
-    return view('Skincare.index', ['title' => 'Skincare']);
-});
+Route::get('/Skincare', [skincareController::class, 'index']);
+Route::get('/Skincare/create', [SkincareController::class, 'create']);
 
-Route::get('/Skincare/create', function () {
-    return view('Skincare.create', ['title' => 'Create Skincare']);
-});
+
