@@ -16,6 +16,7 @@
             <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
         </div>
     @endsession
+
     <a class="btn btn-primary mb-4" href="{{ route('skincare.create') }}" role="button">Tambah Skincare</a>
 
 
@@ -24,6 +25,10 @@
             <li class="list-group-item">
                 {{ $skincare->id }} -- {{ $skincare->name }} -- {{ $skincare->brand }} -- {{ $skincare->type }} --
                 {{ $skincare->skin_type }} -- {{ $skincare->expired_date }}
+
+                <a href="{{ route('skincare.edit', $skincare->id) }}" class="btn btn-sm btn-warning">
+                    Edit
+                </a>
             </li>
         @endforeach
     </ul>

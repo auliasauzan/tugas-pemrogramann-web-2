@@ -74,17 +74,45 @@ public function store(Request $request)
      * Show the form for editing the specified resource.
      */
     public function edit(Skincare $skincare)
-    {
-        //
-    }
+{
+    return view('skincare.edit', [
+        'title' => 'Edit Produk Skincare',
+        'skincare' => $skincare
+    ]);
+}
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Skincare $skincare)
-    {
-        //
-    }
+  public function update(Request $request, Skincare $skincare)
+{
+    // 1. Validasi data yang masuk
+    $validated = $request->validate([
+        'name'         => 'required|max:255',
+        'brand'        => 'required|max:255',
+        'type'         => 'required',
+        'skin_type'    => 'required',
+        'expired_date' => 'required|date',
+    ], [
+        // Pesan Error Custom (Bahasa Indonesia)
+        'name.required'         => 'Nama produk tidak boleh kosong.',
+        'brand.required'        => 'Brand skincare harus diisi.',
+        'type.required'         => 'Pilih salah satu jenis produk.',
+        'skin_type.required'    => 'Jenis kulit harus dipilih.',
+        'expired_date.required' => 'Tanggal kadaluarsa wajib diisi.',
+        'expired_date.date'     => 'Format tanggal tidak valid.',
+    ]);
+
+    // 2. Karena kita menghapus deskripsi di form, 
+    // pastikan database tidak error jika kolom tersebut NOT NULL
+    $validated['description'] = $skincare->description ?? '-';
+
+    // 3. Update data ke database
+    $skincare->update($validated);
+
+    // 4. Kembali ke halaman index dengan pesan sukses
+    return redirect()->route('skincare.index')->with('success', 'Data skincare berhasil diperbarui!');
+}
 
     /**
      * Remove the specified resource from storage.
