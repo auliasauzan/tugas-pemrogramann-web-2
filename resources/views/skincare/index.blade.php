@@ -10,6 +10,14 @@
         @endforeach
     </ul> --}}
 
+    @session('success')
+        <div class="alert alert-success alert-dismissible fade show p-3 mb-4" role="alert">
+            <strong>Berhasil!</strong> {{ $value }}
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+    @endsession
+    <a class="btn btn-primary mb-4" href="{{ route('skincare.create') }}" role="button">Tambah Skincare</a>
+
 
     <ul class="list-group">
         @foreach ($skincares as $skincare)

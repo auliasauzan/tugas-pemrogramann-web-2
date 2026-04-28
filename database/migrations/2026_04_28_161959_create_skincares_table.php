@@ -17,7 +17,6 @@ return new class extends Migration
         $table->string('brand'); // Merek
         $table->string('type'); // Jenis Produk (Cleanser, Toner, dll)
         $table->string('skin_type'); // Jenis Kulit (Kering, Berminyak, dll)
-        $table->text('description'); // Deskripsi Produk
         $table->date('expired_date'); // Tanggal Kadaluarsa
             $table->timestamps();
         });

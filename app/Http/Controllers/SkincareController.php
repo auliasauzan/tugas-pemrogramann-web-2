@@ -31,17 +31,43 @@ return view('skincare.index', [
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
-    {
-        //
-    }
+public function store(Request $request)
+{
+    $validated = $request->validate([
+        'name'         => 'required|max:255',
+        'brand'        => 'required|max:255',
+        'type'         => 'required',
+        'skin_type'    => 'required',
+        'expired_date' => 'required|date',
+    ], [
+        // Pesan error custom sesuai keinginan Anda
+        'name.required'         => 'Nama produk tidak boleh kosong',
+        'name.max'              => 'Nama tidak boleh lebih dari 255 karakter',
+        'brand.required'        => 'Brand tidak boleh kosong',
+        'type.required'         => 'Silakan pilih jenis produk',
+        'skin_type.required'    => 'Silakan pilih jenis kulit',
+        'expired_date.required' => 'Tanggal kadaluarsa wajib diisi',
+        'expired_date.date'     => 'Format tanggal tidak valid',
+    ]);
+
+    // Berikan nilai default untuk deskripsi karena di database bersifat NOT NULL
+    $validated['description'] = '-';
+
+    \App\Models\Skincare::create($validated);
+
+    return redirect('/skincare')->with('success', 'Produk berhasil disimpan!');
+}
+
 
     /**
      * Display the specified resource.
      */
     public function show(Skincare $skincare)
     {
-        //
+        return view('skincare.show', [
+        'title'    => 'Detail Skincare',
+        'skincare' => $skincare
+    ]);
     }
 
     /**
@@ -67,4 +93,5 @@ return view('skincare.index', [
     {
         //
     }
+
 }
