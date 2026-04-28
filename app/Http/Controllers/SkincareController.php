@@ -12,7 +12,12 @@ class SkincareController extends Controller
      */
     public function index()
     {
-         return view('Skincare.index', ['title' => 'Skincare']);
+      
+
+return view('skincare.index', [
+    'title'    => 'Skincare',
+    'skincares' => Skincare::all(),
+]);
     }
 
     /**
