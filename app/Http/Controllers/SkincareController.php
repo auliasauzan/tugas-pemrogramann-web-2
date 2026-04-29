@@ -117,9 +117,12 @@ public function store(Request $request)
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Skincare $skincare)
-    {
-        //
-    }
+   public function destroy(Skincare $skincare)
+{
+    // Menghapus data dari database
+    $skincare->delete();
 
+    // Kembali ke halaman index dengan pesan sukses
+    return redirect()->route('skincare.index')->with('success', 'Produk skincare berhasil dihapus!');
+}
 }

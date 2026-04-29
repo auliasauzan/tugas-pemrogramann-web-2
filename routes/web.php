@@ -19,3 +19,4 @@ Route::get('/skincare/{skincare}/edit', [SkincareController::class, 'edit'])->na
 // Memproses update data
 Route::put('/skincare/{skincare}', [SkincareController::class, 'update'])->name('skincare.update');
 
+Route::delete('/skincare/{skincare}', [SkincareController::class, 'destroy'])->name('skincare.destroy');

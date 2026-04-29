@@ -22,13 +22,24 @@
 
     <ul class="list-group">
         @foreach ($skincares as $skincare)
-            <li class="list-group-item">
-                {{ $skincare->id }} -- {{ $skincare->name }} -- {{ $skincare->brand }} -- {{ $skincare->type }} --
-                {{ $skincare->skin_type }} -- {{ $skincare->expired_date }}
+            <li class="list-group-item d-flex justify-content-between align-items-center">
+                <div>
+                    {{ $skincare->id }} -- {{ $skincare->name }} -- {{ $skincare->brand }} -- {{ $skincare->type }} --
+                    {{ $skincare->skin_type }} -- {{ $skincare->expired_date }}
+                </div>
 
-                <a href="{{ route('skincare.edit', $skincare->id) }}" class="btn btn-sm btn-warning">
-                    Edit
-                </a>
+                <div class="d-flex gap-2">
+                    <a href="{{ route('skincare.edit', $skincare->id) }}" class="btn btn-sm btn-warning">
+                        Edit
+                    </a>
+
+                    <form action="{{ route('skincare.destroy', $skincare->id) }}" method="POST"
+                        onsubmit="return confirm('Yakin ingin menghapus?')">
+                        @csrf
+                        @method('DELETE')
+                        <button type="submit" class="btn btn-sm btn-danger">Hapus</button>
+                    </form>
+                </div>
             </li>
         @endforeach
     </ul>
