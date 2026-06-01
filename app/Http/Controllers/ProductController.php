@@ -55,4 +55,32 @@ public function store(Request $request)
         ->route('product.index')
         ->with('success', 'Product berhasil ditambahkan!');
 }
+
+
+public function edit(Product $product)
+{
+    return view('product.edit', [
+        'title' => 'Edit Product',
+        'product' => $product,
+        'categories' => Category::all(),
+    ]);
+}
+
+public function update(Request $request, Product $product)
+{
+    $validated = $request->validate([
+        'name' => 'required|max:255',
+        'brand' => 'required|max:255',
+        'type' => 'required|max:255',
+        'skin_type' => 'required|max:255',
+        'expired_date' => 'required|date',
+        'category_id' => 'required',
+    ]);
+
+    $product->update($validated);
+
+    return redirect()
+        ->route('product.index')
+        ->with('success', 'Data Product berhasil diubah');
+}
 }

@@ -1,10 +1,12 @@
 <x-app>
     <x-slot name="title">{{ $title }}</x-slot>
 
+    {{-- Tombol Create --}}
     <a href="{{ route('product.create') }}" class="btn btn-primary mb-3">
         Create
     </a>
 
+    {{-- Search + Filter --}}
     <form action="{{ route('product.index') }}" method="GET" class="mb-4">
         <div class="row">
 
@@ -17,7 +19,7 @@
                 <select name="category_id" class="form-control">
 
                     <option value="">
-                        Semua Categoryy
+                        Semua Category
                     </option>
 
                     @foreach ($categories as $category)
@@ -39,27 +41,39 @@
         </div>
     </form>
 
+    {{-- List Product --}}
     <ul class="list-group mb-4">
 
         @foreach ($products as $product)
-            <li class="list-group-item">
-                {{ $loop->iteration }}.
-                {{ $product->name }}
-                --
-                {{ $product->brand }}
-                --
-                {{ $product->type }}
-                --
-                {{ $product->skin_type }}
-                --
-                {{ $product->expired_date }}
-                --
-                {{ $product->category->name }}
+            <li class="list-group-item d-flex justify-content-between align-items-center">
+
+                <div>
+                    {{ $loop->iteration }}.
+                    {{ $product->name }}
+                    -
+                    {{ $product->brand }}
+                    -
+                    {{ $product->type }}
+                    -
+                    {{ $product->skin_type }}
+                    -
+                    {{ $product->expired_date }}
+                    -
+                    {{ $product->category->name }}
+                </div>
+
+                <div>
+                    <a href="{{ route('product.edit', $product->id) }}" class="btn btn-warning btn-sm">
+                        Edit
+                    </a>
+                </div>
+
             </li>
         @endforeach
 
     </ul>
 
+    {{-- Pagination --}}
     <div class="d-flex justify-content-between align-items-center">
 
         <div>
