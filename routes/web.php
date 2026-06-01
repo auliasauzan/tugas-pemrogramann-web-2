@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\SkincareController;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\CategoryController;
 
 Route::get('/', function () {
     return view('welcome');
@@ -20,3 +21,4 @@ Route::get('/skincare/{skincare}/edit', [SkincareController::class, 'edit'])->na
 Route::put('/skincare/{skincare}', [SkincareController::class, 'update'])->name('skincare.update');
 
 Route::delete('/skincare/{skincare}', [SkincareController::class, 'destroy'])->name('skincare.destroy');
+Route::get('/category', [CategoryController::class, 'index'])->name('category.index');
