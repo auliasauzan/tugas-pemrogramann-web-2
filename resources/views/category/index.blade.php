@@ -61,6 +61,9 @@
                         <button type="submit" class="btn btn-danger btn-sm">
                             Hapus
                         </button>
+                        <a href="{{ route('category.show', $category->id) }}" class="btn btn-info btn-sm text-white">
+                            Detail
+                        </a>
 
                     </form>
 

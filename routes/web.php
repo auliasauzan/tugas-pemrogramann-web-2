@@ -37,3 +37,6 @@ Route::put('/category/{category}',
 Route::delete('/category/{category}',
     [CategoryController::class, 'destroy']
 )->name('category.destroy');
+Route::get('/category/{category}',
+    [CategoryController::class, 'show']
+)->name('category.show');

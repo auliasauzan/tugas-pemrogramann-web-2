@@ -76,4 +76,11 @@ public function destroy(Category $category)
         ->route('category.index')
         ->with('success', 'Data category berhasil dihapus');
 }
+public function show(Category $category)
+{
+    return view('category.show', [
+        'title' => 'Detail Category',
+        'category' => $category,
+    ]);
+}
 }
