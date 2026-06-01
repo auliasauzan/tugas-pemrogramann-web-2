@@ -64,5 +64,7 @@ Route::put('/product/{product}',
     [ProductController::class, 'update']
 )->name('product.update');
 
-
+Route::delete('/product/{product}',
+    [ProductController::class, 'destroy']
+)->name('product.destroy');
 

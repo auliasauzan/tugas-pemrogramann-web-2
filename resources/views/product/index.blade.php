@@ -66,7 +66,21 @@
                     <a href="{{ route('product.edit', $product->id) }}" class="btn btn-warning btn-sm">
                         Edit
                     </a>
+
+
                 </div>
+                <form action="{{ route('product.destroy', $product->id) }}" method="POST"
+                    onsubmit="return confirm('Yakin ingin menghapus data?')">
+
+                    @csrf
+                    @method('DELETE')
+
+                    <button type="submit" class="btn btn-danger btn-sm">
+                        Hapus
+                    </button>
+
+                </form>
+
 
             </li>
         @endforeach

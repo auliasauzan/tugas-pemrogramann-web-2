@@ -83,4 +83,13 @@ public function update(Request $request, Product $product)
         ->route('product.index')
         ->with('success', 'Data Product berhasil diubah');
 }
+
+public function destroy(Product $product)
+{
+    $product->delete();
+
+    return redirect()
+        ->route('product.index')
+        ->with('success', 'Data Product berhasil dihapus');
+}
 }
