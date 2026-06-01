@@ -1,6 +1,14 @@
 <x-app>
     <x-slot name="title">{{ $title }}</x-slot>
 
+    {{-- Alert Success --}}
+    @session('success')
+        <div class="alert alert-success alert-dismissible fade show mb-3" role="alert">
+            {{ $value }}
+            <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+        </div>
+    @endsession
+
     {{-- Tombol Create --}}
     <a href="{{ route('category.create') }}" class="btn btn-primary mb-3">
         Create
@@ -36,10 +44,26 @@
                     {{ $category->code }}
                 </div>
 
-                <div>
+                <div class="d-flex gap-2">
+
+                    {{-- Tombol Edit --}}
                     <a href="{{ route('category.edit', $category->id) }}" class="btn btn-warning btn-sm">
                         Edit
                     </a>
+
+                    {{-- Tombol Hapus --}}
+                    <form action="{{ route('category.destroy', $category->id) }}" method="POST"
+                        onsubmit="return confirm('Yakin ingin menghapus data?')">
+
+                        @csrf
+                        @method('DELETE')
+
+                        <button type="submit" class="btn btn-danger btn-sm">
+                            Hapus
+                        </button>
+
+                    </form>
+
                 </div>
 
             </li>

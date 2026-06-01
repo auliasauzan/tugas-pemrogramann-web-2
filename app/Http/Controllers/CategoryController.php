@@ -68,4 +68,12 @@ public function update(Request $request, Category $category)
         ->route('category.index')
         ->with('success', 'Data category berhasil diubah');
 }
+public function destroy(Category $category)
+{
+    $category->delete();
+
+    return redirect()
+        ->route('category.index')
+        ->with('success', 'Data category berhasil dihapus');
+}
 }
