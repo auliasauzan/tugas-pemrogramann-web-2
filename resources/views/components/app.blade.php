@@ -47,8 +47,28 @@
     {{-- Header biru seperti gambar --}}
     <div class="bg-primary py-3"></div>
 
-    {{-- Content --}}
     <div class="container my-5">
+
+        {{-- Alert Success --}}
+        @if (session('success'))
+            <div class="alert alert-success alert-dismissible fade show mb-4" role="alert">
+                {{ session('success') }}
+
+                <button type="button" class="btn-close" data-bs-dismiss="alert">
+                </button>
+            </div>
+        @endif
+
+        {{-- Alert Error --}}
+        @if (session('error'))
+            <div class="alert alert-danger alert-dismissible fade show mb-4" role="alert">
+                {{ session('error') }}
+
+                <button type="button" class="btn-close" data-bs-dismiss="alert">
+                </button>
+            </div>
+        @endif
+
         {{ $slot }}
     </div>
 

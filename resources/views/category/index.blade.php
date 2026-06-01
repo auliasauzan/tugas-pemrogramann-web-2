@@ -1,6 +1,8 @@
 <x-app>
     <x-slot name="title">{{ $title }}</x-slot>
-
+    <a href="{{ route('category.create') }}" class="btn btn-primary mb-3">
+        Create
+    </a>
     {{-- Search --}}
     <form action="{{ route('category.index') }}" method="GET" class="mb-4">
         <div class="row">
