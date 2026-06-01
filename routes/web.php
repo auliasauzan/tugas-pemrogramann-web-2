@@ -68,3 +68,5 @@ Route::delete('/product/{product}',
     [ProductController::class, 'destroy']
 )->name('product.destroy');
 
+Route::get('/product/{product}', [ProductController::class, 'show'])
+    ->name('product.show');

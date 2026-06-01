@@ -79,8 +79,12 @@
                         Hapus
                     </button>
 
-                </form>
 
+
+                </form>
+                <a href="{{ route('product.show', $product->id) }}" class="btn btn-info btn-sm text-white">
+                    Detail
+                </a>
 
             </li>
         @endforeach

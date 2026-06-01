@@ -92,4 +92,12 @@ public function destroy(Product $product)
         ->route('product.index')
         ->with('success', 'Data Product berhasil dihapus');
 }
+
+public function show(Product $product)
+{
+    return view('product.show', [
+        'title' => 'Detail Product',
+        'product' => $product
+    ]);
+}
 }
