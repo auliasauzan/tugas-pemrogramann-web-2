@@ -17,7 +17,7 @@
                 <select name="category_id" class="form-control">
 
                     <option value="">
-                        Semua Category
+                        Semua Categoryy
                     </option>
 
                     @foreach ($categories as $category)
