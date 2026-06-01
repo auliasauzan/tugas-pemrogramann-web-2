@@ -3,10 +3,13 @@
 use App\Http\Controllers\SkincareController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\ProductController;
 
 Route::get('/', function () {
     return view('welcome');
 });
+
+
 
 
 Route::get('/', [SkincareController::class, 'index']);
@@ -40,3 +43,16 @@ Route::delete('/category/{category}',
 Route::get('/category/{category}',
     [CategoryController::class, 'show']
 )->name('category.show');
+Route::get('/skincare', [SkincareController::class, 'index'])
+    ->name('skincare.index');
+
+    Route::get('/product', [ProductController::class, 'index'])
+    ->name('product.index');
+   
+    Route::get('/product/create', [ProductController::class, 'create'])
+    ->name('product.create');
+
+
+Route::post('/product/store', [ProductController::class, 'store'])
+    ->name('product.store');
+

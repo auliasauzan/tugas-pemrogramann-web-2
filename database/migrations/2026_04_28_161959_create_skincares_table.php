@@ -11,15 +11,22 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('skincares', function (Blueprint $table) {
-            $table->id();
-            $table->string('name'); // Nama Produk
-        $table->string('brand'); // Merek
-        $table->string('type'); // Jenis Produk (Cleanser, Toner, dll)
-        $table->string('skin_type'); // Jenis Kulit (Kering, Berminyak, dll)
-        $table->date('expired_date'); // Tanggal Kadaluarsa
-            $table->timestamps();
-        });
+      Schema::create('skincares', function (Blueprint $table) {
+    $table->id();
+
+    $table->foreignId('category_id')
+          ->constrained()
+          ->cascadeOnDelete();
+
+    $table->string('name');
+    $table->string('brand');
+    $table->string('type');
+    $table->string('skin_type');
+    $table->date('expired_date');
+
+    $table->timestamps();
+});
+
     }
 
     /**

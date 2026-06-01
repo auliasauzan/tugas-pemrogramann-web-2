@@ -17,4 +17,9 @@ class Skincare extends Model
         'skin_type',
         'expired_date',
     ];
+
+ public function category()
+{
+    return $this->belongsTo(Category::class);
+}
 }
