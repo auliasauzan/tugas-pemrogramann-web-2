@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Product;
 use App\Models\Category;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class ProductController extends Controller
 {
@@ -40,22 +41,37 @@ class ProductController extends Controller
     }
 
     public function store(Request $request)
-    {
-        $validated = $request->validate([
-            'name' => 'required|max:255',
-            'brand' => 'required|max:255',
-            'type' => 'required|max:255',
-            'skin_type' => 'required|max:255',
-            'expired_date' => 'required|date',
-            'category_id' => 'required|exists:categories,id',
-        ]);
+{
+    $validated = $request->validate([
+        'brand' => 'required',
+        'type' => 'required',
+        'skin_type' => 'required',
+        'expired_date' => 'required',
+        'shelf_life' => 'required',
+        'category_id' => 'required',
+    ]);
+
+    try {
+
+        DB::beginTransaction();
 
         Product::create($validated);
 
+        DB::commit();
+
         return redirect()
             ->route('product.index')
-            ->with('success', 'Product berhasil ditambahkan!');
+            ->with('success', 'Data Product berhasil ditambahkan');
+
+    } catch (\Exception $e) {
+
+        DB::rollBack();
+
+        return back()
+            ->withInput()
+            ->with('error', 'Data gagal ditambahkan');
     }
+}
 
     public function edit(Product $product)
     {
