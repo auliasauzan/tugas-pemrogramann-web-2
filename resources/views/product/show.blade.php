@@ -16,6 +16,8 @@
 
             <p><strong>Category:</strong> {{ $product->category->name }}</p>
 
+            <p><strong>Shelf Life:</strong>{{ $product->shelf_life }}</p>
+
         </div>
     </div>
 

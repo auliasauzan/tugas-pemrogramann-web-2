@@ -44,6 +44,11 @@
             </select>
         </div>
 
+        <div class="mb-3">
+            <label>Shelf Life</label>
+            <input type="text" name="shelf_life" class="form-control" placeholder="Contoh: 12M">
+        </div>
+
         <button class="btn btn-primary">
             Simpan
         </button>

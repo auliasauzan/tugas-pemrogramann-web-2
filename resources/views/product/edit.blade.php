@@ -43,6 +43,12 @@
             </select>
         </div>
 
+        <div class="mb-3">
+            <label>Shelf Life</label>
+            <input type="text" name="shelf_life" class="form-control"
+                value="{{ old('shelf_life', $product->shelf_life) }}">
+        </div>
+
         <button class="btn btn-warning">
             Update
         </button>
