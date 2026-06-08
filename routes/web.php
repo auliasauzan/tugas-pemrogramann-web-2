@@ -46,11 +46,17 @@ Route::get('/category/{category}',
 Route::get('/skincare', [SkincareController::class, 'index'])
     ->name('skincare.index');
 
+    Route::delete('/skincare/{skincare}',
+    [SkincareController::class, 'destroy']
+)->name('skincare.destroy');
+
     Route::get('/product', [ProductController::class, 'index'])
     ->name('product.index');
    
     Route::get('/product/create', [ProductController::class, 'create'])
     ->name('product.create');
+
+    
 
 
 Route::post('/product/store', [ProductController::class, 'store'])

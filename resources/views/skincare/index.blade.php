@@ -1,5 +1,5 @@
 <x-app>
-    <x-slot name="title">{{ $title }}</x-slot>
+    <x-slot:title>{{ $title }}</x-slot>
 
 
 

@@ -8,18 +8,21 @@ use Illuminate\Http\Request;
 class CategoryController extends Controller
 {
     public function index(Request $request)
-    {
-        $search = $request->search;
+{
+    $search = $request->search;
 
-        $categories = Category::when($search, function ($query) use ($search) {
-            $query->where('name', 'like', "%{$search}%");
-        })->paginate(10);
+    $categories = Category::when($search, function ($query) use ($search) {
+        $query->where('name', 'like', '%' . $search . '%')
+              ->orWhere('description', 'like', '%' . $search . '%')
+              ->orWhere('code', 'like', '%' . $search . '%');
+    })
+    ->paginate(10);
 
-        return view('category.index', [
-            'title' => 'Category',
-            'categories' => $categories
-        ]);
-    }
+    return view('category.index', [
+        'title' => 'Category',
+        'categories' => $categories,
+    ]);
+}
 
     public function create()
     {

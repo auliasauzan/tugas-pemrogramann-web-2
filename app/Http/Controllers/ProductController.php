@@ -9,95 +9,95 @@ use Illuminate\Http\Request;
 class ProductController extends Controller
 {
     public function index(Request $request)
+{
+    $products = Product::with('category');
+
+    // Search nama atau brand
+    if ($request->search) {
+        $products->where(function ($query) use ($request) {
+            $query->where('name', 'like', '%' . $request->search . '%')
+                  ->orWhere('brand', 'like', '%' . $request->search . '%');
+        });
+    }
+
+    // Filter category
+    if ($request->category_id) {
+        $products->where('category_id', $request->category_id);
+    }
+
+    return view('product.index', [
+        'title' => 'Product',
+        'products' => $products->paginate(5)->withQueryString(),
+        'categories' => Category::all(),
+    ]);
+}
+    public function create()
     {
-        $search = $request->search;
-        $category = $request->category_id;
-
-        $products = Product::with('category')
-            ->when($search, function ($query) use ($search) {
-                $query->where('name', 'like', "%{$search}%")
-                      ->orWhere('brand', 'like', "%{$search}%");
-            })
-            ->when($category, function ($query) use ($category) {
-                $query->where('category_id', $category);
-            })
-            ->latest()
-            ->paginate(10);
-
-        return view('product.index', [
-            'title' => 'Product',
-            'products' => $products,
+        return view('product.create', [
+            'title' => 'Create Product',
             'categories' => Category::all(),
         ]);
     }
 
-    public function create()
-{
-    return view('product.create', [
-        'title' => 'Create Product',
-        'categories' => Category::all(),
-    ]);
-}
-public function store(Request $request)
-{
-    $validated = $request->validate([
-        'name' => 'required|max:255',
-        'brand' => 'required|max:255',
-        'type' => 'required|max:255',
-        'skin_type' => 'required|max:255',
-        'expired_date' => 'required|date',
-        'category_id' => 'required|exists:categories,id',
-    ]);
+    public function store(Request $request)
+    {
+        $validated = $request->validate([
+            'name' => 'required|max:255',
+            'brand' => 'required|max:255',
+            'type' => 'required|max:255',
+            'skin_type' => 'required|max:255',
+            'expired_date' => 'required|date',
+            'category_id' => 'required|exists:categories,id',
+        ]);
 
-    Product::create($validated);
+        Product::create($validated);
 
-    return redirect()
-        ->route('product.index')
-        ->with('success', 'Product berhasil ditambahkan!');
-}
+        return redirect()
+            ->route('product.index')
+            ->with('success', 'Product berhasil ditambahkan!');
+    }
 
+    public function edit(Product $product)
+    {
+        return view('product.edit', [
+            'title' => 'Edit Product',
+            'product' => $product,
+            'categories' => Category::all(),
+        ]);
+    }
 
-public function edit(Product $product)
-{
-    return view('product.edit', [
-        'title' => 'Edit Product',
-        'product' => $product,
-        'categories' => Category::all(),
-    ]);
-}
+    public function update(Request $request, Product $product)
+    {
+        $validated = $request->validate([
+            'name' => 'required|max:255',
+            'brand' => 'required|max:255',
+            'type' => 'required|max:255',
+            'skin_type' => 'required|max:255',
+            'expired_date' => 'required|date',
+            'category_id' => 'required|exists:categories,id',
+        ]);
 
-public function update(Request $request, Product $product)
-{
-    $validated = $request->validate([
-        'name' => 'required|max:255',
-        'brand' => 'required|max:255',
-        'type' => 'required|max:255',
-        'skin_type' => 'required|max:255',
-        'expired_date' => 'required|date',
-        'category_id' => 'required',
-    ]);
+        $product->update($validated);
 
-    $product->update($validated);
+        return redirect()
+            ->route('product.index')
+            ->with('success', 'Data Product berhasil diubah');
+    }
 
-    return redirect()
-        ->route('product.index')
-        ->with('success', 'Data Product berhasil diubah');
-}
+    public function destroy(Product $product)
+    {
+        $product->delete();
 
-public function destroy(Product $product)
-{
-    $product->delete();
+        return redirect()
+            ->route('product.index')
+            ->with('success', 'Data Product berhasil dihapus');
+    }
 
-    return redirect()
-        ->route('product.index')
-        ->with('success', 'Data Product berhasil dihapus');
-}
-
-public function show(Product $product)
-{
-    return view('product.show', [
-        'title' => 'Detail Product',
-        'product' => $product
-    ]);
-}
+    public function show(Product $product)
+    {
+        return view('product.show', [
+            'title' => 'Detail Product',
+            'product' => $product
+        ]);
+    }
 }

@@ -29,7 +29,7 @@
 
                     <li class="nav-item">
                         <a class="nav-link" href="{{ route('skincare.index') }}">
-                            Custumer
+                            Skincare
                         </a>
                     </li>
 
@@ -75,7 +75,7 @@
             <div class="alert alert-danger alert-dismissible fade show">
                 {{ session('error') }}
                 <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
-            </div>
+            </div> --}}
         @endif
 
         {{ $slot }}

@@ -1,5 +1,5 @@
 <x-app>
-    <x-slot name="title">{{ $title }}</x-slot>
+    <x-slot:title>{{ $title }}</x-slot:title>
 
     <form action="{{ route('product.update', $product->id) }}" method="POST">
         @csrf

@@ -9,15 +9,14 @@ class Skincare extends Model
 {
     use HasFactory;
 
-    // Tambahkan/sesuaikan ini:
-    protected $fillable = [
-        'name',
-        'brand',
-        'type',
-        'skin_type',
-        'expired_date',
-    ];
-
+  protected $fillable = [
+    'name',
+    'category_id',
+    'brand',
+    'type',
+    'skin_type',
+    'expired_date',
+];
  public function category()
 {
     return $this->belongsTo(Category::class);
