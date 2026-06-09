@@ -5,6 +5,10 @@
         Create
     </a>
 
+    <a href="{{ route('product.trash') }}" class="btn btn-dark mb-3">
+        Trash
+    </a>
+
     {{-- Search dan Filter --}}
     <form action="{{ route('product.index') }}" method="GET" class="row mb-3">
 

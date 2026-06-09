@@ -133,4 +133,12 @@ class ProductController extends Controller
             'product' => $product
         ]);
     }
+
+    public function trash()
+{
+    return view('product.trash', [
+        'title' => 'Trash Product',
+        'products' => Product::onlyTrashed()->paginate(5)
+    ]);
+}
 }
