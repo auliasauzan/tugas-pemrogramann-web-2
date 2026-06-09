@@ -151,4 +151,13 @@ public function restore($id)
         ->with('success', 'Data Product berhasil direstore');
 }
 
+public function forceDelete($id)
+{
+    Product::onlyTrashed()->findOrFail($id)->forceDelete();
+
+    return redirect()
+        ->route('product.trash')
+        ->with('success', 'Data Product berhasil dihapus permanen');
+}
+
 }
