@@ -77,5 +77,8 @@ Route::delete('/product/{product}',
 Route::get('/product/trash', [ProductController::class, 'trash'])
     ->name('product.trash');
 
+Route::put('/product/{id}/restore', [ProductController::class, 'restore'])
+    ->name('product.restore');
+
 Route::get('/product/{product}', [ProductController::class, 'show'])
     ->name('product.show');

@@ -8,12 +8,27 @@
     <div class="list-group">
 
         @forelse($products as $product)
-            <div class="list-group-item">
-                <strong>{{ $product->name }}</strong><br>
+            <div class="list-group-item d-flex justify-content-between align-items-center">
 
-                Brand : {{ $product->brand }} <br>
-                Type : {{ $product->type }} <br>
-                Shelf Life : {{ $product->shelf_life }}
+                <div>
+                    <strong>{{ $product->name }}</strong><br>
+
+                    Brand : {{ $product->brand }} <br>
+                    Type : {{ $product->type }} <br>
+                    Shelf Life : {{ $product->shelf_life }}
+                </div>
+
+                <div>
+                    <form action="{{ route('product.restore', $product->id) }}" method="POST">
+                        @csrf
+                        @method('PUT')
+
+                        <button class="btn btn-success btn-sm">
+                            Restore
+                        </button>
+                    </form>
+                </div>
+
             </div>
 
         @empty

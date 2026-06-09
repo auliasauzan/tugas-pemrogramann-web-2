@@ -141,4 +141,14 @@ class ProductController extends Controller
         'products' => Product::onlyTrashed()->paginate(5)
     ]);
 }
+
+public function restore($id)
+{
+    Product::onlyTrashed()->findOrFail($id)->restore();
+
+    return redirect()
+        ->route('product.trash')
+        ->with('success', 'Data Product berhasil direstore');
+}
+
 }
