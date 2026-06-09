@@ -43,6 +43,7 @@ class ProductController extends Controller
     public function store(Request $request)
 {
     $validated = $request->validate([
+        'name' => 'required',
         'brand' => 'required',
         'type' => 'required',
         'skin_type' => 'required',
@@ -82,23 +83,39 @@ class ProductController extends Controller
         ]);
     }
 
-    public function update(Request $request, Product $product)
-    {
-        $validated = $request->validate([
-            'name' => 'required|max:255',
-            'brand' => 'required|max:255',
-            'type' => 'required|max:255',
-            'skin_type' => 'required|max:255',
-            'expired_date' => 'required|date',
-            'category_id' => 'required|exists:categories,id',
-        ]);
+   public function update(Request $request, Product $product)
+{
+    $validated = $request->validate([
+        'name' => 'required',
+        'brand' => 'required',
+        'type' => 'required',
+        'skin_type' => 'required',
+        'expired_date' => 'required',
+        'shelf_life' => 'required',
+        'category_id' => 'required',
+    ]);
+
+    try {
+
+        DB::beginTransaction();
 
         $product->update($validated);
+
+        DB::commit();
 
         return redirect()
             ->route('product.index')
             ->with('success', 'Data Product berhasil diubah');
+
+    } catch (\Exception $e) {
+
+        DB::rollBack();
+
+        return back()
+            ->withInput()
+            ->with('error', 'Gagal mengubah data Product');
     }
+}
 
     public function destroy(Product $product)
     {

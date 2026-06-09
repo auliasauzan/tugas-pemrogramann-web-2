@@ -54,6 +54,8 @@
                     -
                     {{ $product->expired_date }}
                     -
+                    {{ $product->shelf_life ?? 'KOSONG' }}
+                    -
                     {{ $product->category->name ?? '-' }}
                 </div>
 

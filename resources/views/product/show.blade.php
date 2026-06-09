@@ -14,9 +14,9 @@
 
             <p><strong>Expired Date:</strong> {{ $product->expired_date }}</p>
 
-            <p><strong>Category:</strong> {{ $product->category->name }}</p>
-
             <p><strong>Shelf Life:</strong>{{ $product->shelf_life }}</p>
+
+            <p><strong>Category:</strong> {{ $product->category->name }}</p>
 
         </div>
     </div>
